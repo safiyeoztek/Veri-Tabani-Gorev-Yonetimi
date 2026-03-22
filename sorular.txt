@@ -1,0 +1,35 @@
+==>  Bu projeyle şunu fark ettim: Eskiden Python'da bir değişken tanımladığımda, programı kapattığım an o isim kayboluyordu. Ama şimdi sqlite3 sayesinde:
+Bilgileri bilgisayarın hafızasına kaydetmeyi öğrendim.
+Program çökse de, verilerimin güvende kalabileceğini gördüm.
+Aslında kullandığımız çoğu sosyal medya uygulamalarının da temelinde bu mantığın (Veri ekle -> Sakla -> Çağır) yattığını kavradım.
+Özetle Python ile artık sadece kod değil, hatırlayan sistemler kurabileceğimi anladım.
+
+
+import sqlite3
+
+conn = sqlite3.connect("test.db")
+cursor = conn.cursor()
+
+cursor.execute("CREATE TABLE IF NOT EXISTS users (name TEXT)")
+conn.commit()
+
+print("Tablo hazır")
+
+
+==> Bu kod ne oluşturuyor?
+Bu kod, öncelikle bilgisayarımızda test.db adında bir veritabanı dosyası oluşturuyor.
+Ardından bu dosyanın içine, içinde sadece name sütunu bulunan users isimli bir tablo kuruyor. 
+Yani verilerimizi düzenli koyabileceğimiz bir dijital klasör hazırlıyor.
+
+==> Veritabanı dosyası nerede?
+Bu dosya, yazdığımız Python kodunun bulunduğu aynı klasörde oluşur.
+
+==> Kod ikinci kez çalıştırılırsa ne olur?
+Kod ikinci kez çalıştığında Python veritabanına bakar, 
+users tablosu zaten olduğu için hiçbir hata vermeden yola devam eder. Yani tabloyu silmez veya üstüne yazıp 
+bozmaz, sadece olduğu gibi bırakır.
+
+Bu dosya (test.db) silinirse ne olur?
+Eğer bu dosyayı elimizle silersek, içindeki tüm veriler tamamen ve kalıcı
+ olarak silinir. Ama kodu tekrar çalıştırdığımızda Python "dosya yok" der ve her şeyi sıfırdan, bomboş bir şekilde 
+ tekrar oluşturur. Yani sistem çalışmaya devam eder ama verilerimizi kaybetmiş oluruz.
